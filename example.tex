@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section{Eigenvectors and Eigenvalues}
+
+Given a matrix $A$, an eigenvector of $A$ is a non-zero vector $v$ such that $Av = \lambda v$ for some scalar $\lambda$, called the eigenvalue corresponding to $v$. The eigenvectors and eigenvalues of a matrix provide important information about its behavior under transformation.
+
+Consider the matrix $A = \begin{pmatrix} 3 & -1 \\ 2 & 0 \end{pmatrix}$. To find the eigenvectors and eigenvalues of $A$, we can use the following steps:
+
+\begin{enumerate}
+    \item Calculate the characteristic polynomial of the matrix. The characteristic polynomial is given by the formula:
+    
+    \[\det(A - \lambda I) = 0\]
+    
+    where $I$ is the identity matrix.
+    
+    For the given matrix $A$, the characteristic polynomial is:
+    
+    \[\det\left(\begin{pmatrix} 3-\lambda & -1 \\ 2 & 0-\lambda \end{pmatrix}\right) = (3-\lambda)(0-\lambda) - 2(-1) = \lambda^2 - 3\lambda +2 = 0\]
+    
+    \item Solve the equation $\lambda^2 - 3\lambda +2 = 0$ to find the eigenvalues. This equation can be factored as $(\lambda-1)(\lambda-2) = 0$, so the eigenvalues are $\lambda = 1$ and $\lambda = 3$.
+    
+    \item For each eigenvalue, solve the equation $(A - \lambda I)x = 0$ to find the corresponding eigenvector.
+    
+    For $\lambda = 1$, the equation is $\begin{pmatrix} 3-1 & -1 \\ 2 & 0-1 \end{pmatrix}x = \begin{pmatrix} 2 & -1 \\ 2 & -1 \end{pmatrix}x = 0$. This equation has a non-trivial solution when the determinant of the matrix is zero, which occurs when $2(-1) - (-1) = 0$. Thus, the eigenvector corresponding to $\lambda = 1$ is $\begin{pmatrix} 1 \\ 1 \end{pmatrix}$.
+    
+    For $\lambda = 2$, the equation is $\begin{pmatrix} 3-2 & -1 \\ 2 & 0-2 \end{pmatrix}x = \begin{pmatrix} 1 & -1 \\ 2 & -2 \end{pmatrix}x = 0$. This equation has a non-trivial solution when the determinant of the matrix is zero, which occurs when $1(-2) - (-1)2 = 0$. Thus, the eigenvector corresponding to $\lambda = 2$ is $\begin{pmatrix} 1 \\ 2 \end{pmatrix}$.
+    
+\end{enumerate}
+
+Therefore, the eigenvectors and eigenvalues of the matrix $A = \begin{pmatrix} 3 & -1 \\ 2 & 0 \end{pmatrix}$ are:
+
+\begin{itemize}
+    \item Eigenvalues: $\lambda = 1, \lambda = 2$
+    \item Eigenvectors: $\begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\begin{pmatrix} 1 \\ 2 \end{pmatrix}$
+\end{itemize}
+
+It is worth noting that the eigenvectors of a matrix are not unique, since they can be multiplied by any non-zero scalar and still satisfy the equation $Av = \lambda v$. However, the eigenvalues of a matrix are unique.
+
+In addition to providing insight into the behavior of a matrix under transformation, eigenvectors and eigenvalues also have applications in other areas of mathematics, such as differential equations and image compression.
+
+\section{Diagonalization}
+
+A matrix $A$ is diagonalizable if and only if it has $n$ linearly independent eigenvectors, where $n$ is the size of the matrix. In other words, a matrix is diagonalizable if it is possible to find a basis consisting of its eigenvectors.
+
+We have already determined that the matrix $A = \begin{pmatrix} 3 & -1 \\ 2 & 0 \end{pmatrix}$ has two linearly independent eigenvectors: $\begin{pmatrix} 1 \\ 1 \end{pmatrix}$ and $\begin{pmatrix} 1 \\ 2 \end{pmatrix}$. Therefore, $A$ is diagonalizable.
+
+To find the matrix $P$ that diagonalizes $A$, we can use the eigenvectors of $A$ as the columns of $P$. Specifically, we can define $P$ as follows:
+
+\[P = \begin{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} & \begin{pmatrix} 1 \\ 2 \end{pmatrix} \end{pmatrix} = \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}\]
+
+Then, the diagonalized form of $A$ can be found by computing $P^{-1}AP$.
+
+\[P^{-1}AP = \left(\begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}\right)^{-1} \begin{pmatrix} 3 & -1 \\ 2 & 0 \end{pmatrix} \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 3 \end{pmatrix}\]
+
+Thus, the results of the diagonalization of $A$ are:
+
+\[P = \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}\]
+
+\[D = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\]
+
+where $D$ is the diagonal matrix containing the eigenvalues of $A$ on the diagonal.
+
+\end{document}
