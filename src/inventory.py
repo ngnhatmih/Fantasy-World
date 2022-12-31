@@ -1,12 +1,14 @@
 import pathlib
 import sys
 
-CUR_FILE = r"C:\Users\ngnhatmih\Desktop\Ouch\Projects\Fantasy-World\src\Entities"
+CUR_FOLDDER = str(pathlib.Path(__file__).parent.resolve()) 
+PATH = (CUR_FOLDDER + "/Entities").replace("/", "//")
 '''
 Get the current path of the folder contains this file Path.(__file__)
 and make it become an abs path
 '''
-sys.path.append(CUR_FILE)
+
+sys.path.append(PATH)
 
 from Entities.item import Item
 
