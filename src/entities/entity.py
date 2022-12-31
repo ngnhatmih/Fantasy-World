@@ -5,7 +5,7 @@ class Entity:
         self.description = description
 
 class Creature(Entity):
-    def __init__(self, species, level, exp, hit_points, strength, agility, defense, accuracy, critical_hit, critical_hit_chance):
+    def __init__(self, name, sprite, description, species, level, exp, hit_points, strength, agility, defense, accuracy, critical_hit, critical_hit_chance):
         super().__init__(name, sprite, description)
         self.species = species
         self.level = level
