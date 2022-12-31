@@ -1,4 +1,4 @@
-from entities.entity import Item
+from entity import Item
 
 class Inventory:
     def __init__(self, capcity):
