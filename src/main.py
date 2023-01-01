@@ -45,3 +45,4 @@ while isRunning:
     
     pygame.display.flip()
 
+pygame.quit()
