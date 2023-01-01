@@ -1,7 +1,7 @@
 import pygame
 from constant import *
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT, KEYDOWN, K_ESCAPE, QUIT)
-# added comment
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
