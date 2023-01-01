@@ -12,14 +12,9 @@ isRunning = True
 while(isRunning):
     
     for event in pygame.event.get():
-        #key event?
-        if event.type == KEYDOWN:
-            print(event)
-            if event.key == K_ESCAPE:
-                isRunning = False
-        #not a key event?
-        elif event.type == pygame.QUIT:
+        if event.type == pygame.QUIT:
             isRunning = False
+        
     
     screen.fill(colors['white'])
 
