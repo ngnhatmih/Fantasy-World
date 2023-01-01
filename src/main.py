@@ -15,7 +15,7 @@ while(isRunning):
         if event.type == pygame.QUIT:
             isRunning = False
         
-    
+     
     screen.fill(colors['white'])
 
     surf = pygame.Surface(SURF_SIZE)
