@@ -1,6 +1,7 @@
 ############################################
 #screen
-size = WIDTH, HEIGHT = 800, 600
+SIZE = WIDTH, HEIGHT = 800, 600
+CENTER = WIDTH/2, HEIGHT/2
 FPS = 60
 
 # Define Colors 

@@ -3,3 +3,4 @@ class Entity:
         self.name = name
         self.sprite = sprite
         self.description = description
+
