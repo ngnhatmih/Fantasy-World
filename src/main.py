@@ -5,17 +5,31 @@ from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT, KEYDOWN, K_ESCAPE, QUI
 pygame.init()
 screen = pygame.display.set_mode(size)
 
+SURF_SIZE = SURF_WIDTH, SURF_HEIGHT= 50, 50
+
 isRunning = True
-i = 0
+
 while(isRunning):
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            isRunning == False
-        
     
-    screen.fill((i,0,255))
+    for event in pygame.event.get():
+        #key event?
+        if event.type == KEYDOWN:
+            print(event)
+            if event.key == K_ESCAPE:
+                isRunning = False
+        #not a key event?
+        elif event.type == pygame.QUIT:
+            isRunning = False
+    
+    screen.fill(colors['white'])
 
-    pygame.display.update()
+    surf = pygame.Surface(SURF_SIZE)
+    surf.fill(colors['black'])
+
+    rect = surf.get_rect()
+
+    screen.blit(surf, ((WIDTH - SURF_WIDTH)/2, (HEIGHT - SURF_HEIGHT)/2))
+    pygame.display.flip()
 
 pygame.quit()
+
