@@ -1,5 +1,6 @@
 import sdl2, sdl2.ext
 from constant import *
+from inputHandler import *
 
 class FantasyWorld:
 
@@ -19,22 +20,8 @@ class FantasyWorld:
 
     # Event handling function
     def handleEvents(self):
-        for event in sdl2.ext.get_events():
-            if event.type == sdl2.SDL_QUIT:
-                self.isRunning = False
-
-            elif event.type == sdl2.SDL_KEYDOWN:
-                match event.key.keysym.sym:
-                    case sdl2.SDLK_a:
-                        pass
-                    case sdl2.SDLK_s:
-                        pass
-                    case sdl2.SDLK_d:
-                        pass
-                    case sdl2.SDLK_w:
-                        pass
-                    case sdl2.SDLK_ESCAPE:
-                        self.isRunning = False
+        self.isRunning = inputHandler().update()
+                        
                              
     # Render function
     def render(self):
