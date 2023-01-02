@@ -31,9 +31,8 @@ while isRunning:
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 isRunning = False
-        
         elif event.type == QUIT:
-            isRunning == False
+            isRunning = False
 
     pressed_keys = pygame.key.get_pressed()
     player.update(pressed_keys)
