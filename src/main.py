@@ -1,48 +1,31 @@
-import pygame
+import sdl2, sdl2.ext
 from constant import *
-from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT, KEYDOWN, K_ESCAPE, QUIT)
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        super(Player, self).__init__()
-        self.surf = pygame.Surface((20,20))
-        self.surf.fill(colors['white'])
-        self.rect = self.surf.get_rect()
-    
-    def update(self, pressed_keys):
-        if pressed_keys[K_UP]:
-            self.rect.move_ip(0, -5)
-        if pressed_keys[K_DOWN]:
-            self.rect.move_ip(0, 5)
-        if pressed_keys[K_LEFT]:
-            self.rect.move_ip(-5, 0)
-        if pressed_keys[K_RIGHT]:
-            self.rect.move_ip(5, 0)
+sdl2.ext.init()
 
-pygame.init()
+window = sdl2.ext.Window("Title", size)
+renderer = sdl2.ext.renderer.Renderer(window, flags = sdl2.SDL_RENDERER_ACCELERATED)
 
-player = Player()
-
-screen = pygame.display.set_mode(SIZE)
+window.show()
 
 isRunning = True
 while isRunning:
-    for event in pygame.event.get():
-        if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                isRunning = False
+
+    for event in sdl2.ext.get_events():
+        if event.type == sdl2.SDL_Quit:
+            isRunning = False
         
-        elif event.type == QUIT:
-            isRunning == False
+    renderer.color = sdl2.ext.Color(*colors['white'], 0)
+    renderer.clear()
+    renderer.color = sdl2.ext.Color(*colors['violet'], 255)
 
-    pressed_keys = pygame.key.get_pressed()
-    player.update(pressed_keys)
+    renderer.fill((100,100,100,100))
 
-    screen.fill(colors['black'])
+    renderer.present()
 
-    screen.blit(player.surf, CENTER)
+    window.refresh()
 
+renderer.destroy()
+window.close()
+sdl2.ext.quit()
     
-    pygame.display.flip()
-
-pygame.quit()

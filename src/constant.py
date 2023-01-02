@@ -1,6 +1,6 @@
 ############################################
 #screen
-SIZE = WIDTH, HEIGHT = 800, 600
+size = WIDTH, HEIGHT = 800, 600
 CENTER = WIDTH/2, HEIGHT/2
 FPS = 60
 
