@@ -1,7 +1,7 @@
 import sdl2, sdl2.ext
 import ctypes
 
-class SingletonMeta(type):
+class Singleton(type):
 
     _instances = {}
     def __call__(self, *args, **kwargs):
@@ -11,22 +11,16 @@ class SingletonMeta(type):
 
         return self._instances[self]
 
-class inputHandler(metaclass = SingletonMeta):
+class InputHandler(metaclass = Singleton):
+
     def __init__(self):
-        self.keystates : sdl2.Uint8 = None
+        pass
 
-    def isKeyDown(self, key: sdl2.SDL_Scancode)->bool:
-        if self.keystates != 0:
-            if self.keystates[key] == 1:
-                return True
-            else: return False
-        else: return False
-
-    def onKeyDown(self, event:sdl2.SDL_Event):
-        print("Key Pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
-
-    def onKeyUp(self, event:sdl2.SDL_Event):
-        print("Key Released: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
+    def onKeyDown(self, event : sdl2.SDL_Event):
+        print("Key pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
+    
+    def onKeyUp(self, event : sdl2.SDL_Event):
+        print("Key pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
     def update(self)->bool:
         isRunning = True
@@ -40,4 +34,5 @@ class inputHandler(metaclass = SingletonMeta):
                     self.onKeyDown(event)
                 case sdl2.SDL_KEYUP:
                     self.onKeyUp(event)
+
         return isRunning
