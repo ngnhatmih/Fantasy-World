@@ -15,9 +15,50 @@ class Singleton(type):
         return self._instances[self]
 
 class InputHandler(metaclass = Singleton):
+    
+    mouseButtonStates = []
+
+    def __init__(self):
+        for i in range(3):
+            self.mouseButtonStates.append(False)
+        self.mPos = Vector2D([0,0]) # Mouse's Position
 
     #/Mouse/
+    def getMouseButtonState(self, buttonNum : int)-> bool:
+        return self.mouseButtonStates[buttonNum]
     
+    def getMousePos(self)->Vector2D:
+        return self.mPos
+    
+    def onMouseButtonDown(self, event: sdl2.SDL_Event):
+        self.onMouseMove(event)
+        print(self.getMousePos())
+        match event.button.button:
+            case sdl2.SDL_BUTTON_LEFT:
+                self.mouseButtonStates[MouseButtons.LEFT.value] = True
+            case sdl2.SDL_BUTTON_RIGHT:
+                self.mouseButtonStates[MouseButtons.RIGHT.value] = True
+            case sdl2.SDL_BUTTON_MIDDLE:
+                self.mouseButtonStates[MouseButtons.MIDDLE.value] = True
+
+    def onMouseButtonUp(self, event: sdl2.SDL_Event):
+        match event.button.button:
+            case sdl2.SDL_BUTTON_LEFT:
+                self.mouseButtonStates[MouseButtons.LEFT.value] = False
+            case sdl2.SDL_BUTTON_RIGHT:
+                self.mouseButtonStates[MouseButtons.RIGHT.value] = False
+            case sdl2.SDL_BUTTON_MIDDLE:
+                self.mouseButtonStates[MouseButtons.MIDDLE.value] = False
+
+    def onMouseMove(self, event: sdl2.SDL_Event):
+        self.mPos.setX(event.motion.x)
+        self.mPos.setY(event.motion.y)
+
+    def reset(self):
+        for i in range(3):
+            self.mouseButtonStates.append(False)
+        
+
     #/Keyboard/
     def onKeyDown(self, event: sdl2.SDL_Event):
         print("Key pressed:", sdl2.SDL_GetKeyName(event.key.keysym.sym))
@@ -46,5 +87,9 @@ class InputHandler(metaclass = Singleton):
                     self.onKeyDown(event)
                 case sdl2.SDL_KEYUP:
                     self.onKeyUp(event)
+                case sdl2.SDL_MOUSEBUTTONDOWN:
+                    self.onMouseButtonDown(event)
+                case sdl2.SDL_MOUSEBUTTONUP:
+                    self.onMouseButtonUp(event)
 
         return isRunning

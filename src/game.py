@@ -21,6 +21,7 @@ class FantasyWorld:
     # Event handling function
     def handleEvents(self):
         self.isRunning = InputHandler().update()
+        
                         
                              
     # Render function
