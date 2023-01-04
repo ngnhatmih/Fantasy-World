@@ -116,8 +116,10 @@ class Vector2D:
         return Vector2D([-self.x, -self.y])
 
     def normalise(self):
-        if self.length() > 0:
-            return self / self.length()
+        l = self.length()
+        if l > 0:
+            self.__imul__(1/l)
+            return self
 
     def __repr__(self):
         return f"[{self.x}, {self.y}]"
@@ -126,6 +128,6 @@ if __name__ == "__main__":
     v = Vector2D([2,3])
     u = Vector2D([3,5])
     print(v.length())
-    print(v.normalise())
+    v.normalise()
     print(v)
     
