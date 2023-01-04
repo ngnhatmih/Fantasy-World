@@ -1,6 +1,6 @@
 import sdl2, sdl2.ext
 from constant import *
-from inputHandler import *
+from input_handler import *
 
 class FantasyWorld:
 
@@ -25,9 +25,9 @@ class FantasyWorld:
                              
     # Render function
     def render(self):
-        self.renderer.color = sdl2.ext.Color(*colors['white'], 0)
+        self.renderer.color = sdl2.ext.Color(*Colors.WHITE.value, 0)
         self.renderer.clear()
-        self.renderer.color = sdl2.ext.Color(*colors['violet'], 255)
+        self.renderer.color = sdl2.ext.Color(*Colors.VIOLET.value, 255)
 
         self.renderer.fill((100,100,100,100))
 
