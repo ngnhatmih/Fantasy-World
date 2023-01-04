@@ -10,11 +10,114 @@ class Vector2D:
             self.x = vector.x
             self.y = vector.y
     
+    def length(self)-> float:
+        return math.sqrt(self.x*self.x + self.y*self.y)
+
+    def getX(self):
+        return self.x
+    
+    def getY(self):
+        return self.y
+
+    def setX(self, x):
+        self.x = x
+    
+    def setY(self, y):
+        self.y = y
+
     def __add__(self, other):
         if isinstance(other, list) or isinstance(other, tuple):
             return Vector2D([self.x + other[0], self.y + other[1]])
         elif isinstance(other, Vector2D):
             return Vector2D([self.x + other.x, self.y + other.y])
+        else : return NotImplemented
+        
+    def __radd__(self, other):
+        if isinstance(other, list) or isinstance(other, tuple):
+            return Vector2D([self.x + other[0], self.y + other[1]])
+        elif isinstance(other, Vector2D):
+            return Vector2D([self.x + other.x, self.y + other.y])
+        else: return NotImplemented
+
+    def __iadd__(self, other):
+        if isinstance(other, list) or isinstance(other, tuple):
+            self.x += other[0]
+            self.y += other[1]
+            return self
+
+        elif isinstance(other, Vector2D):
+            self.x += other.x
+            self.y += other.y
+            return self
+
+        else: return NotImplemented
+
+    def __sub__(self, other):
+        if isinstance(other, list) or isinstance(other, tuple):
+            return Vector2D([self.x - other[0], self.y - other[1]])
+        elif isinstance(other, Vector2D):
+            return Vector2D([self.x - other.x, self.y - other.y])
+        else: return NotImplemented
+
+    def __rsub__(self, other):
+        if isinstance(other, list) or isinstance(other, tuple):
+            return Vector2D([other[0] - self.x, other[1]- self.y])
+        elif isinstance(other, Vector2D):
+            return Vector2D([other.x - self.x, other.y- self.y])
+        else: return NotImplemented
+
+    def __isub__(self, other):
+        if isinstance(other, list) or isinstance(other, tuple):
+            self.x -= other[0]
+            self.y -= other[1]
+            return self     
+
+        elif isinstance(other, Vector2D):
+            self.x -= other.x
+            self.y -= other.y
+            return self
+
+        else: return NotImplemented
+
+    def __mul__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            return Vector2D([self.x*other, self.y*other])
+        else: return NotImplemented
+
+    def __rmul__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            return Vector2D([self.x*other, self.y*other])
+        else: return NotImplemented
+    
+    def __imul__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            self.x *= other
+            self.y *= other
+            return self
+        else: return NotImplemented
+
+    def dot(self, other):
+        if isinstance(other, tuple) or isinstance(other, list):
+            return self.x * other[0] + self.y * other[1]
+        elif isinstance(other, Vector2D):
+            return self.x * other.x + self.y * other.y
+
+    def __truediv__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            return Vector2D([self.x / other, self.y / other])
+        else: return NotImplemented
+
+    def __itruediv__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            return Vector2D([self.x / other, self.y / other])
+        else: return NotImplemented
+
+    def __neg__(self):
+        return Vector2D([-self.x, -self.y])
+
+    def normalise(self):
+        if self.length() > 0:
+            return self / self.length()
 
     def __repr__(self):
         return f"[{self.x}, {self.y}]"
@@ -22,4 +125,7 @@ class Vector2D:
 if __name__ == "__main__":
     v = Vector2D([2,3])
     u = Vector2D([3,5])
-    print(v+u)
+    print(v.length())
+    print(v.normalise())
+    print(v)
+    
