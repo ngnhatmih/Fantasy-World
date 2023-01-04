@@ -1,7 +1,7 @@
 import sdl2, sdl2.ext
 import ctypes
 from constant import *
-
+from vector2D import *
 class Singleton(type):
     
     _instances = {}
