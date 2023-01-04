@@ -1,5 +1,6 @@
 import sdl2, sdl2.ext
 import ctypes
+from constant import *
 
 class Singleton(type):
     
@@ -14,6 +15,9 @@ class Singleton(type):
 
 class InputHandler(metaclass = Singleton):
 
+    #/Mouse/
+    
+    #/Keyboard/
     def onKeyDown(self, event: sdl2.SDL_Event):
         print("Key pressed:", sdl2.SDL_GetKeyName(event.key.keysym.sym))
     

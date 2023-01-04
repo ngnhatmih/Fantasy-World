@@ -19,4 +19,8 @@ class Colors(Enum):
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
+class MouseButtons(Enum):
+    LEFT = 0
+    MIDDLE = 1
+    RIGHT = 2
 ###########################################
