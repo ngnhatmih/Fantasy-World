@@ -32,7 +32,6 @@ class InputHandler(metaclass = Singleton):
     
     def onMouseButtonDown(self, event: sdl2.SDL_Event):
         self.onMouseMove(event)
-        print(self.getMousePos())
         match event.button.button:
             case sdl2.SDL_BUTTON_LEFT:
                 self.mouseButtonStates[MouseButtons.LEFT.value] = True
@@ -53,6 +52,7 @@ class InputHandler(metaclass = Singleton):
     def onMouseMove(self, event: sdl2.SDL_Event):
         self.mPos.setX(event.motion.x)
         self.mPos.setY(event.motion.y)
+        print(f"Mouse position = x: {self.mPos.getX()}, y: {self.mPos.getY()}")
 
     def reset(self):
         for i in range(3):
@@ -64,7 +64,7 @@ class InputHandler(metaclass = Singleton):
         print("Key pressed:", sdl2.SDL_GetKeyName(event.key.keysym.sym))
     
     def onKeyUp(self, event: sdl2.SDL_Event):
-        print("Key pressed:", sdl2.SDL_GetKeyName(event.key.keysym.sym))
+        print("Key released:", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
     def isKeyDown(self, key : sdl2.SDL_Scancode)->bool:
         print(self.keystates != 0)
