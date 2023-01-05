@@ -22,7 +22,12 @@ class TextureManager:
         if surface == 0:
             return False
 
+        # Add the texture to the texture list
         textureMap[id] = sdl2.ext.Texture(renderer, surface)
+
+        # We can now free the surface since the texture is now stored in sdl2.ext.Texture
+        sdl2.SDL_FreeSurface(surface)
+
         return True
 
 
