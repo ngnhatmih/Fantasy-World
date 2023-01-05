@@ -17,6 +17,7 @@ class TextureManager:
     def load(path: str, id: str, renderer: sdl2.ext.renderer.Renderer) -> bool:
         # Use the built-in pysdl2 image loading library instead of the C version
         # Still returns the C SDL_Surface though
+        # This also initializes the SDL image library for us
         surface: sdl2.SDL_Surface = sdl2.ext.image.load_img(path)
 
         if surface == 0:

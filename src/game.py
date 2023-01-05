@@ -3,7 +3,7 @@ from constant import *
 from input_handler import *
 from texture_manager import *
 
-path = b"assets/images/Comparison2x.png" # Filepaths are relative if the current working directory if absolute (full) path is not given
+path = b"assets/images/Comparison2x.png" # Filepaths are already relative if the current working directory is absolute (full) path is not given
 
 class FantasyWorld:
 
