@@ -15,7 +15,7 @@ class TextureManager:
     def load(path: str, id: str, pRenderer: sdl2.ext.renderer.Renderer)->bool:
 
 
-        pTexture: sdl2.ext.renderer.Texture = sdl2.sdlimage.IMG_LoadTexture(pRenderer.sdlrenderer, path)
+        pTexture = sdl2.sdlimage.IMG_LoadTexture(pRenderer.sdlrenderer, path)
 
         if pTexture != 0:
             m_textureMap[id] = pTexture
@@ -36,8 +36,7 @@ class TextureManager:
         destRect.w *= scale
         destRect.h *= scale
 
-        pRenderer.copy(pTexture,srcRect,destRect)
-
+        pRenderer.copy(m_textureMap[id],srcRect,destRect)
     @staticmethod
     def drawFrame(id: str, x: int, y: int, width: int, height: int, scale: float, currentRow: int, currentFrame: int, r: float, pRenderer: sdl2.ext.renderer.Renderer, flip: sdl2.SDL_RendererFlip):
         srcRect: sdl2.SDL_Rect = sdl2.SDL_RectEmpty
@@ -51,7 +50,7 @@ class TextureManager:
         destRect.w *= scale
         destRect.h *= scale
 
-        pRenderer.copy(pTexture,srcRect,destRect)
+        pRenderer.copy(m_textureMap[id],srcRect,destRect)
 
     @staticmethod
     def cleanFromTextureMap(id : str):
