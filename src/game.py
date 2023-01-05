@@ -3,7 +3,7 @@ from constant import *
 from input_handler import *
 from texture_manager import *
 
-path = b"path/to/texture.bmp"
+path = b"assets/images/Comparison2x.png" # Filepaths are already relative if the current working directory is absolute (full) path is not given
 
 class FantasyWorld:
 
@@ -34,8 +34,8 @@ class FantasyWorld:
     # Render function
     def render(self):
         self.renderer.clear()
-        TextureManager().draw("test", 100, 100, 128, 128, 1, 0, self.getRenderer(), sdl2.SDL_FLIP_NONE)
-        TextureManager().drawFrame("test", 300, 300, 128, 128, 1, 0, 0, 0, self.getRenderer())
+        TextureManager().draw(self.getRenderer(), "test", 100, 100, 128, 128)
+        TextureManager().draw(self.getRenderer(), "test", 300, 300, 128, 128, 1, 1)
 
     def update(self):
         self.renderer.present()
