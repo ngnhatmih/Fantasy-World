@@ -1,6 +1,9 @@
 import sdl2, sdl2.ext
 from constant import *
 from input_handler import *
+from texture_manager import *
+
+path = b"path/to/texture.bmp"
 
 class FantasyWorld:
 
@@ -18,19 +21,21 @@ class FantasyWorld:
 
         self.isRunning = True
 
+        TextureManager().load(path, "test", self.getRenderer())
+
     # Event handling function
     def handleEvents(self):
         self.isRunning = InputHandler().update()
         
                         
-                             
+    def getRenderer(self) -> sdl2.ext.renderer.Renderer:
+        return self.renderer
+
     # Render function
     def render(self):
-        self.renderer.color = sdl2.ext.Color(*Colors.WHITE.value, 0)
         self.renderer.clear()
-        self.renderer.color = sdl2.ext.Color(*Colors.VIOLET.value, 255)
-
-        self.renderer.fill((100,100,100,100))
+        TextureManager().draw("test", 100, 100, 128, 128, 1, 0, self.getRenderer(), sdl2.SDL_FLIP_NONE)
+        TextureManager().drawFrame("test", 300, 300, 128, 128, 1, 0, 0, 0, self.getRenderer())
 
     def update(self):
         self.renderer.present()
@@ -38,6 +43,7 @@ class FantasyWorld:
 
     # Clean up
     def clean(self)->bool:
+        TextureManager().cleanFromTextureMap("test")
         self.renderer.destroy()
         self.window.close()
         sdl2.ext.quit()

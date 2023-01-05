@@ -11,25 +11,26 @@ class Singleton(type):
         if self not in self._instances:
             instance = super().__call__(*args, **kwargs)
             self._instances[self] = instance
-
         return self._instances[self]
 
 class InputHandler(metaclass = Singleton):
     
-    mouseButtonStates = []
+    mouseButtonStates =[]
 
     def __init__(self):
         for i in range(3):
             self.mouseButtonStates.append(False)
-        self.mPos = Vector2D([0,0]) # Mouse's Position
-
-    #/Mouse/
-    def getMouseButtonState(self, buttonNum : int)-> bool:
-        return self.mouseButtonStates[buttonNum]
+        
+        self.mPos = Vector2D([0,0])
     
     def getMousePos(self)->Vector2D:
         return self.mPos
     
+    def onMouseMove(self,  event: sdl2.SDL_Event):
+        self.mPos.setX(event.motion.x)
+        self.mPos.setY(event.motion.y)
+        print(f"Mouse Position ({MouseButtons(event.button.button-1).name}) = x: {self.mPos.x}, y: {self.mPos.y}")
+
     def onMouseButtonDown(self, event: sdl2.SDL_Event):
         self.onMouseMove(event)
         match event.button.button:
@@ -49,15 +50,9 @@ class InputHandler(metaclass = Singleton):
             case sdl2.SDL_BUTTON_MIDDLE:
                 self.mouseButtonStates[MouseButtons.MIDDLE.value] = False
 
-    def onMouseMove(self, event: sdl2.SDL_Event):
-        self.mPos.setX(event.motion.x)
-        self.mPos.setY(event.motion.y)
-        print(f"Mouse position = x: {self.mPos.getX()}, y: {self.mPos.getY()}")
-
     def reset(self):
         for i in range(3):
-            self.mouseButtonStates.append(False)
-        
+            self.mouseButtonStates[i] = False
 
     #/Keyboard/
     def onKeyDown(self, event: sdl2.SDL_Event):
