@@ -1,1 +1,0 @@
-sdl2.SDL_RectEmpty
