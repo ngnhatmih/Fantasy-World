@@ -1,8 +1,16 @@
 SIZE = HEIGHT, WIDTH = 320, 640
 CENTER = HEIGHT/2, WIDTH/2
 
+FPS = 60
+DELAY = int(1000/FPS)
+
 import enum
 
+class MouseButtons(enum.Enum):
+    LEFT = 0
+    MIDDLE = 1
+    RIGHT = 0
+    
 class Colors(enum.Enum): 
     RED = (255, 0, 0, 1.0)
     GREEN = (0, 255, 0, 1.0)
