@@ -45,6 +45,7 @@ class Game(metaclass = Singleton):
     def eventHandle(self):
         self.isRunning = InputHandler.InputHandler().update()
 
+    # Render the frame
     def render(self):
         self.renderer.clear()
         TextureManager().drawFrame(self.renderer, "test", 0, 0, 64, 64, 1.0, self.currentFrame % 5, int(self.currentFrame/4))
@@ -52,7 +53,7 @@ class Game(metaclass = Singleton):
         if self.currentFrame == 12:
             self.currentFrame = 0
 
-
+    # Update to the screen
     def update(self):
         self.renderer.present()
         self.window.refresh()
