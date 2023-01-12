@@ -1,8 +1,21 @@
 import sdl2, sdl2.ext
 import InputHandler
+from TextureManager import *
 from Constant import *
 
-class Game:
+class Singleton(type):
+    # This variable is used to store all instances initialized
+    instances = {}
+    
+    # __call__ makes the class itself become a function whenever it is called
+    def __call__(self, *args, **kwds):
+        # Check whether the instance is in instances
+        if self not in self.instances:
+            instance = super().__call__(*args, **kwds)
+            self.instances[self] = instance
+        return self.instances[self]  
+
+class Game(metaclass = Singleton):
     version = 0.0
 
     def __init__(self):
@@ -23,16 +36,26 @@ class Game:
         # Is the game running?
         self.isRunning = True
 
+        # Load the textures
+        TextureManager().load("assets/textures/test.png", "test", self.renderer)
+        self.currentFrame = 0
+
         
     # Event Handling
     def eventHandle(self):
         self.isRunning = InputHandler.InputHandler().update()
 
     def render(self):
-        pass
+        self.renderer.clear()
+        TextureManager().drawFrame(self.renderer, "test", 0, 0, 64, 64, 1.0, self.currentFrame % 5, int(self.currentFrame/4))
+        self.currentFrame += 1
+        if self.currentFrame == 12:
+            self.currentFrame = 0
+
 
     def update(self):
-        pass
+        self.renderer.present()
+        self.window.refresh()
     
     # Clean up
     def clean(self):
