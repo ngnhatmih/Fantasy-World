@@ -37,7 +37,7 @@ class Game(metaclass = Singleton):
         self.isRunning = True
 
         # Load the textures
-        TextureManager().load("assets/textures/test.png", "test", self.renderer)
+        TextureManager().load("assets/textures/red.png", "test", self.renderer)
         self.currentFrame = 0
 
         
@@ -48,10 +48,9 @@ class Game(metaclass = Singleton):
     # Render the frame
     def render(self):
         self.renderer.clear()
-        TextureManager().drawFrame(self.renderer, "test", 0, 0, 64, 64, 1.0, self.currentFrame % 5, int(self.currentFrame/4))
-        self.currentFrame += 1
-        if self.currentFrame == 12:
-            self.currentFrame = 0
+        x = InputHandler.InputHandler().getMousePos().getX()
+        y = InputHandler.InputHandler().getMousePos().getY()
+        TextureManager().draw(self.renderer, "test", x, y, 128, 128, 1)
 
     # Update to the screen
     def update(self):

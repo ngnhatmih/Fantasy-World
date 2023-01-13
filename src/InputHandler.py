@@ -54,8 +54,9 @@ class InputHandler(metaclass = Singleton):
                 self.mouseButtonStates[MouseButtons.RIGHT.value] = True
 
         # Testing  
-        self.onMouseMove(event)      
+        self.onMouseMove(event)
         print(f"Mouse Pos =", self.getMousePos())
+
 
     # Handle released mouse buttons
     def onMouseButtonUp(self, event: sdl2.SDL_Event):

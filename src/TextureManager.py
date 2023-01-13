@@ -38,11 +38,13 @@ class TextureManager(metaclass = Singleton):
     
     # This is normally used for drawing entire texture
     def draw(self, renderer: sdl2.ext.renderer.Renderer, id: str, x: int, y: int, width: int, height: int, scale: float, flip = sdl2.SDL_FLIP_NONE):
-        # srcRect is short for Source rectangle, which is a rectangle region of the image that will be drawn
+        # srcRect is short for source rectangle, which is a rectangle region of the image that will be drawn
         srcRect = (0, 0, width, height)
         # Dest is short for destination refering to the place where the result is goin' on
-        # destRect is Destination rectangle, which is a rectangle region of the image as a result of some operations
+        # destRect is destination rectangle, which is where the image will be drawn
         destRect = (x, y, width*scale, height*scale)
+        # We can say srcRect is a part of the image will be drawn and destRect is the location it will be drawn
+        # We can use srcRect to crop the image, and destRect to move or resize the image
 
         # This can copy the contents of the texture with id to the renderer
         renderer.copy(self.textures[id], srcRect, destRect, flip=flip)
