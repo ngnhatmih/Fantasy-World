@@ -2,11 +2,11 @@ import sdl2, sdl2.ext
 import InputHandler
 from TextureManager import *
 from Constant import *
+from GameStateMachine import *
+from MenuState import MenuState
+
 
 class Singleton(type):
-    # This variable is used to store all instances initialized
-    instances = {}
-    
     # __call__ makes the class itself become a function whenever it is called
     def __call__(self, *args, **kwds):
         # Check whether the instance is in instances
@@ -17,12 +17,17 @@ class Singleton(type):
 
 class Game(metaclass = Singleton):
     version = 0.0
+    # This variable is used to store all instances initialized
+    instances = {}
+    gameStateMachine= GameStateMachine()
 
     def __init__(self):
         # Initialize SDL and its subsystems
         # Subsystems (default): video=True, audio=False, timer=False, joystick=False,
         # controller=False, haptic=False, sensor=False, events=True
         sdl2.ext.init()
+
+        self.gameStateMachine.pushState(MenuState(self))
 
         # Window Creation
         self.window = sdl2.ext.Window(f"Fantasy-World {self.version}", SIZE)
@@ -40,6 +45,8 @@ class Game(metaclass = Singleton):
         TextureManager().load("assets/textures/red.png", "test", self.renderer)
         self.currentFrame = 0
 
+    def getGameStateMachine(self)-> gameStateMachine:
+        return self.gameStateMachine
         
     # Event Handling
     def eventHandle(self):
@@ -48,14 +55,11 @@ class Game(metaclass = Singleton):
     # Render the frame
     def render(self):
         self.renderer.clear()
-        x = InputHandler.InputHandler().getMousePos().getX()
-        y = InputHandler.InputHandler().getMousePos().getY()
-        TextureManager().draw(self.renderer, "test", x, y, 128, 128, 1)
+        self.gameStateMachine.render()
 
     # Update to the screen
     def update(self):
-        self.renderer.present()
-        self.window.refresh()
+        self.gameStateMachine.update()
     
     # Clean up
     def clean(self):

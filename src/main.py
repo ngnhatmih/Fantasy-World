@@ -13,7 +13,7 @@ def main():
         # Calculate the time taken to load the frame
         frameTime = sdl2.SDL_GetTicks() - frameStart
 
-        # Calculate the delays
+        # Calculate the delays 
         delayTime = DELAY - frameTime
 
         # Set delay time

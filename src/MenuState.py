@@ -1,21 +1,25 @@
 from GameState import *
-from GameStateMachine import *
 from TextureManager import *
-from Game import *
 
-class State(GameState):
-    stateID = "STATE"
-    
+class MenuState(GameState):
+    menuID = "MENU"
+    def __init__(self, Game) -> None:
+        self.game = Game
+
     def update(self):
-        pass
+        self.game.renderer.present()
+        self.game.window.show()
 
     def render(self):
-        pass
+        self.game.renderer.clear()
+        TextureManager().draw(self.game.renderer, "test", 0, 0, 128, 128, 1)
 
     def onEnter(self) -> bool:
+        print("Entering menu state...")
         return True
 
     def onExit(self) -> bool:
+        print("Exiting menu state...")
         return True
     
     def onKeyDown(self, event: sdl2.SDL_Event):
@@ -34,4 +38,4 @@ class State(GameState):
         pass
 
     def getStateID(self) -> str:
-        pass
+        return self.menuID

@@ -42,7 +42,5 @@ class GameState(ABC): # Declare abtract class
         pass
 
     @abstractmethod
-    @property
     def getStateID(self)->str:
         pass
-
