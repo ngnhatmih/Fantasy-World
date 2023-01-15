@@ -2,9 +2,11 @@ from GameState import *
 from TextureManager import *
 
 class MenuState(GameState):
+    # State ID
     menuID = "MENU"
-    def __init__(self, Game) -> None:
-        self.game = Game
+    
+    def __init__(self, game) -> None:
+        self.game = game
 
     def update(self):
         self.game.renderer.present()

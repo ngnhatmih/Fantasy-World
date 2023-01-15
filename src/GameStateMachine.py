@@ -50,9 +50,9 @@ class GameStateMachine:
 
     def popState(self, state: gameStates):
         # Remove state to gameStates
-        self.gameStates.append(state)
+        self.gameStates.remove(state)
         # Trigger exit event
-        state.onEnter()
+        state.onExit()
 
     def changeState(self, state: gameStates):
         # Check if gameStates is empty
@@ -63,9 +63,7 @@ class GameStateMachine:
 
             # Otherwise, remove the current state
             else:
-                self.gameStates.pop(-1)
+                self.popState(self.gameStates[-1])
         
         # Push state
-        self.gameStates.append(state)
-        # Trigger enter event
-        state.onEnter()
+        self.pushState(state)

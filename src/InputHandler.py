@@ -25,7 +25,9 @@ class InputHandler(metaclass = Singleton):
     mouseButtonStates: bool = [] # Variable stores mouseButtonStates | MouseButton -> {False, True}
     mousePos = Vector2D(CENTER) # Default position is center of the window
 
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
+
         for i in range(3):
             self.mouseButtonStates.append(False)
 
@@ -40,6 +42,8 @@ class InputHandler(metaclass = Singleton):
         # Update mouse's position
         self.mousePos.setX(event.motion.x)
         self.mousePos.setY(event.motion.y) 
+
+        self.game.getStateMachine().onMouseMove(event)
 
     # MouseButtonDown and MouseButtonUp will trigger these events:
     # Handle pressed mouse buttons
@@ -57,6 +61,8 @@ class InputHandler(metaclass = Singleton):
         self.onMouseMove(event)
         print(f"Mouse Pos =", self.getMousePos())
 
+        self.game.getStateMachine().onMouseButtonDown(event)
+
 
     # Handle released mouse buttons
     def onMouseButtonUp(self, event: sdl2.SDL_Event):
@@ -68,6 +74,8 @@ class InputHandler(metaclass = Singleton):
                 self.mouseButtonStates[MouseButtons.MIDDLE.value] = False
             case sdl2.SDL_BUTTON_RIGHT:
                 self.mouseButtonStates[MouseButtons.RIGHT.value] = False
+
+        self.game.getStateMachine().onMouseButtonUp(event)
 
     # Reset all mouse button states to false
     def reset(self):
@@ -97,13 +105,17 @@ class InputHandler(metaclass = Singleton):
 
         print("Key pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
+        self.game.getStateMachine().onKeyDown(event)
+
     # Handle released keys
     def onKeyUp(self, event: sdl2.SDL_Event):
         # Update keyboardstates
         self.keystates = sdl2.SDL_GetKeyboardState(ctypes.c_long(0))
 
         print("Key released: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
-    
+
+        self.game.getStateMachine().onKeyUp(event)
+
     def update(self)->bool:
         # Is the game running
         self.isRunning = True
@@ -123,4 +135,3 @@ class InputHandler(metaclass = Singleton):
                     self.onMouseButtonUp(event)
                     
         return self.isRunning
-

@@ -19,6 +19,7 @@ class Game(metaclass = Singleton):
     version = 0.0
     # This variable is used to store all instances initialized
     instances = {}
+    # This machine helps push, pop or change state
     gameStateMachine= GameStateMachine()
 
     def __init__(self):
@@ -27,6 +28,7 @@ class Game(metaclass = Singleton):
         # controller=False, haptic=False, sensor=False, events=True
         sdl2.ext.init()
 
+        # Push menu state
         self.gameStateMachine.pushState(MenuState(self))
 
         # Window Creation
@@ -45,12 +47,13 @@ class Game(metaclass = Singleton):
         TextureManager().load("assets/textures/red.png", "test", self.renderer)
         self.currentFrame = 0
 
+    # Get the machine through Game()
     def getGameStateMachine(self)-> gameStateMachine:
         return self.gameStateMachine
         
     # Event Handling
     def eventHandle(self):
-        self.isRunning = InputHandler.InputHandler().update()
+        self.isRunning = InputHandler.InputHandler(self).update()
 
     # Render the frame
     def render(self):
