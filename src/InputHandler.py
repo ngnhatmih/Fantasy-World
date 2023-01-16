@@ -43,7 +43,7 @@ class InputHandler(metaclass = Singleton):
         self.mousePos.setX(event.motion.x)
         self.mousePos.setY(event.motion.y) 
 
-        self.game.getStateMachine().onMouseMove(event)
+        self.game.getGameStateMachine().onMouseMove(event)
 
     # MouseButtonDown and MouseButtonUp will trigger these events:
     # Handle pressed mouse buttons
@@ -61,7 +61,7 @@ class InputHandler(metaclass = Singleton):
         self.onMouseMove(event)
         print(f"Mouse Pos =", self.getMousePos())
 
-        self.game.getStateMachine().onMouseButtonDown(event)
+        self.game.getGameStateMachine().onMouseButtonDown(event)
 
 
     # Handle released mouse buttons
@@ -75,7 +75,7 @@ class InputHandler(metaclass = Singleton):
             case sdl2.SDL_BUTTON_RIGHT:
                 self.mouseButtonStates[MouseButtons.RIGHT.value] = False
 
-        self.game.getStateMachine().onMouseButtonUp(event)
+        self.game.getGameStateMachine().onMouseButtonUp(event)
 
     # Reset all mouse button states to false
     def reset(self):
@@ -105,7 +105,7 @@ class InputHandler(metaclass = Singleton):
 
         print("Key pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
-        self.game.getStateMachine().onKeyDown(event)
+        self.game.getGameStateMachine().onKeyDown(event)
 
     # Handle released keys
     def onKeyUp(self, event: sdl2.SDL_Event):
@@ -114,7 +114,7 @@ class InputHandler(metaclass = Singleton):
 
         print("Key released: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
-        self.game.getStateMachine().onKeyUp(event)
+        self.game.getGameStateMachine().onKeyUp(event)
 
     def update(self)->bool:
         # Is the game running

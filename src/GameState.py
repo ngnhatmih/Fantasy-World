@@ -1,10 +1,14 @@
 from abc import ABC, abstractmethod
 import sdl2
+from GameObject import *
 
 # An abstract class - a class cannot be instantiated
 class GameState(ABC): # Declare abtract class
     # This decorator indicates this method has no implementation but can be overridden by any concrete subclass
     # In C/C++ this is a virtual function which should be overridden in subclass of the abstract class
+
+    gameObjects = {}
+
     @abstractmethod
     def update(self):
         pass
@@ -44,3 +48,8 @@ class GameState(ABC): # Declare abtract class
     @abstractmethod
     def getStateID(self)->str:
         pass
+
+    def getObjectbyID(self, id:str)->GameObject:
+        return self.gameObjects[id]
+
+    
