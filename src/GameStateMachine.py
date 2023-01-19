@@ -1,6 +1,8 @@
 from GameState import *
 import sdl2, sdl2.ext
 
+# GameStateMachine can be also called game state manager, is used to manage those different game states.
+# And determining which one should be showed on screen.
 class GameStateMachine:
     gameStates: GameState = [] # Variable stores game states of the game
 

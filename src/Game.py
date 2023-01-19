@@ -46,6 +46,10 @@ class Game(metaclass = Singleton):
         # Load the textures
         TextureManager().load("assets/textures/red.png", "test", self.renderer)
         self.currentFrame = 0
+    
+    # Get remderer
+    def getRenderer(self)->sdl2.ext.renderer.Renderer:
+        return self.renderer
 
     # Get the machine through Game()
     def getGameStateMachine(self)-> gameStateMachine:
@@ -53,11 +57,10 @@ class Game(metaclass = Singleton):
         
     # Event Handling
     def eventHandle(self):
-        self.isRunning = InputHandler.InputHandler(self).update()
+        InputHandler.InputHandler(self).update()
 
     # Render the frame
     def render(self):
-        self.renderer.clear()
         self.gameStateMachine.render()
 
     # Update to the screen

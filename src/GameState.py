@@ -3,11 +3,11 @@ import sdl2
 from GameObject import *
 
 # An abstract class - a class cannot be instantiated
+# GameState defines the different states such as menu state, in-game state, pause state. 
+# Each state has its own functions like render, update, event handling, so on.
 class GameState(ABC): # Declare abtract class
     # This decorator indicates this method has no implementation but can be overridden by any concrete subclass
     # In C/C++ this is a virtual function which should be overridden in subclass of the abstract class
-
-    gameObjects = {}
 
     @abstractmethod
     def update(self):
@@ -49,7 +49,10 @@ class GameState(ABC): # Declare abtract class
     def getStateID(self)->str:
         pass
 
+    gameObjects:GameObject = {}
+
     def getObjectbyID(self, id:str)->GameObject:
         return self.gameObjects[id]
+
 
     

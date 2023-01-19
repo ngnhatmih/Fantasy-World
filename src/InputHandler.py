@@ -39,10 +39,6 @@ class InputHandler(metaclass = Singleton):
 
     # Moving mouse will trigger this event:
     def onMouseMove(self, event: sdl2.SDL_Event):
-        # Update mouse's position
-        self.mousePos.setX(event.motion.x)
-        self.mousePos.setY(event.motion.y) 
-
         self.game.getGameStateMachine().onMouseMove(event)
 
     # MouseButtonDown and MouseButtonUp will trigger these events:
@@ -56,10 +52,6 @@ class InputHandler(metaclass = Singleton):
                 self.mouseButtonStates[MouseButtons.MIDDLE.value] = True
             case sdl2.SDL_BUTTON_RIGHT:
                 self.mouseButtonStates[MouseButtons.RIGHT.value] = True
-
-        # Testing  
-        self.onMouseMove(event)
-        print(f"Mouse Pos =", self.getMousePos())
 
         self.game.getGameStateMachine().onMouseButtonDown(event)
 
@@ -118,13 +110,13 @@ class InputHandler(metaclass = Singleton):
 
     def update(self)->bool:
         # Is the game running
-        self.isRunning = True
+        self.game.isRunning = True
 
         # Event Polling
         for event in sdl2.ext.get_events():
             match event.type:
                 case sdl2.SDL_QUIT:
-                    self.isRunning = False
+                    self.game.isRunning = False
                 case sdl2.SDL_KEYDOWN:
                     self.onKeyDown(event)
                 case sdl2.SDL_KEYUP:
@@ -133,5 +125,5 @@ class InputHandler(metaclass = Singleton):
                     self.onMouseButtonDown(event)
                 case sdl2.SDL_MOUSEBUTTONUP:
                     self.onMouseButtonUp(event)
-                    
-        return self.isRunning
+
+        self.game.getGameStateMachine().update()
