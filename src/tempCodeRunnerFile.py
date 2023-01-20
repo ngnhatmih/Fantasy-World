@@ -1,1 +1,0 @@
-GameObject("test", 100, 100, 128, 128, 1.0, 1, self.game)

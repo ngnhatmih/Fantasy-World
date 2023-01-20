@@ -2,7 +2,7 @@ import sys
 from Game import *
 
 def main():
-
+    
     # Game Loop
     while(Game().isRunning):
         # The time when the frame starts

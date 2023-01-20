@@ -5,11 +5,12 @@ from InputHandler import *
 class MenuState(GameState):
     # State ID
     menuID = "MENU"
-    vec = Vector2D([0,0])
 
+    # Pass game instance to avoid circular import
     def __init__(self, game) -> None:
         self.game = game
 
+    # Update all objects in menu states
     def update(self):
         for value in self.gameObjects.values():
             value.update()
@@ -17,18 +18,22 @@ class MenuState(GameState):
         self.game.renderer.present()
         self.game.window.show()
 
+    # Draw objects
     def render(self):
         self.game.renderer.clear()
-        self.game.getRenderer().color = sdl2.ext.Color(*Colors.BLUE.value)
-        self.gameObjects["penguin02"] = GameObject("test", self.vec.getX(), self.vec.getY(), 128, 128, 1.0, 1, self.game)
+        self.game.getRenderer().color = sdl2.ext.Color(*Colors.GREEN.value)
+
         for value in self.gameObjects.values():
             value.draw()
 
+    # Trigger this event when joinin this menu state
     def onEnter(self) -> bool:
-        self.gameObjects["penguin01"] = GameObject("test", 50, 50, 128, 128, 1.0, 1, self.game)
         print("Entering menu state...")
+        self.gameObjects["rikka_"] = GameObject("rikka", 100, 100, 395, 368, 1.0, 1, self.game)
+        self.gameObjects["rikka"] = GameObject("rikka", 0, 0, 395, 368, 1.0, 1, self.game)
         return True
 
+    # Trigger this event when leavin this menu state
     def onExit(self) -> bool:
         for value in self.gameObjects.values():
             value.clean()
@@ -45,16 +50,16 @@ class MenuState(GameState):
     def onMouseButtonDown(self, event: sdl2.SDL_Event):
         # Testing  
         self.onMouseMove(event)
-        self.vec = InputHandler().getMousePos()
-        print(f"Mouse Pos =", InputHandler().getMousePos())
+        for key in self.gameObjects:
+            print(f"{key} Pos = {self.gameObjects[key].getPos()}")
 
     def onMouseButtonUp(self, event: sdl2.SDL_Event):
         pass
 
     def onMouseMove(self, event: sdl2.SDL_Event):
         # Update mouse's position
-        InputHandler().mousePos.setX(event.motion.x)
-        InputHandler().mousePos.setY(event.motion.y) 
+        self.gameObjects['rikka'].getPos().setX(event.motion.x)
+        self.gameObjects['rikka'].getPos().setY(event.motion.y)
 
     def getStateID(self) -> str:
         return self.menuID
