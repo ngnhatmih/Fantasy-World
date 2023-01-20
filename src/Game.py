@@ -51,9 +51,9 @@ class Game(metaclass = Singleton):
         return self.renderer
 
     # Get the machine through Game()
-    def getGameStateMachine(self)-> gameStateMachine:
+    def getGameStateMachine(self)-> GameStateMachine:
         return self.gameStateMachine
-        
+
     # Event Handling
     def eventHandle(self):
         InputHandler.InputHandler(self).update()

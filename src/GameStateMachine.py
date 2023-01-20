@@ -20,7 +20,7 @@ class GameStateMachine:
     def onExit(self)->bool:
         pass
 
-    def onKeyDown(self, event: sdl2.SDL_Event):
+    def onKeyDown(self, event: sdl2.SDL_Event):            
         if not self.gameStates == []:
             self.gameStates[-1].onKeyDown(event)
 

@@ -6,7 +6,7 @@ class GameObject:
 
     # Create object
     def __init__(self, textureID, x, y, w, h, scale, numFrames, game):
-        self.textureID, self.rect, self.scale, self.numFrames = textureID, (x, y, w, h), 1.0, numFrames
+        self.textureID, self.rect, self.scale, self.numFrames = textureID, (x, y, w, h), scale, numFrames
         self.game = game
         # Position and velocity of the object
         self.pos = Vector2D([x,y])
@@ -39,10 +39,12 @@ class GameObject:
     def getTextureID(self)->str: return self.textureID
 
     # Check if the position of vec is in rectangle
-    def checkCollision(self, vec: Vector2D)->bool: 
-        if (vec.getX() < self.pos.getX() + self.getW 
+    def checkCollision(self, vec: Vector2D)->bool:
+        # (x_0 y_0) < (x y) < (x_0+width y_0+height)
+        if (vec.getX() > self.pos.getX()
+            and vec.getX() < self.pos.getX() + self.getW()*self.scale 
             and vec.getY() > self.pos.getY()
-            and vec.getX() < self.pos.getX() + self.getH):
+            and vec.getY() < self.pos.getY() + self.getH()*self.scale):
             return True
             
         else: return False

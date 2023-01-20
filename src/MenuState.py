@@ -1,6 +1,7 @@
 from GameState import *
 from TextureManager import *
 from InputHandler import *
+from Button import *
 
 class MenuState(GameState):
     # State ID
@@ -29,8 +30,8 @@ class MenuState(GameState):
     # Trigger this event when joinin this menu state
     def onEnter(self) -> bool:
         print("Entering menu state...")
-        self.gameObjects["rikka_"] = GameObject("rikka", 100, 100, 395, 368, 1.0, 1, self.game)
-        self.gameObjects["rikka"] = GameObject("rikka", 0, 0, 395, 368, 1.0, 1, self.game)
+        self.gameObjects["PlayButton"] = Button("PlayButton", 100, 100, 100, 50, 2.0, self.game)
+        self.gameObjects["ExitButton"] = Button("ExitButton", 100, 220, 100, 50, 2.0, self.game)
         return True
 
     # Trigger this event when leavin this menu state
@@ -48,18 +49,14 @@ class MenuState(GameState):
         pass
 
     def onMouseButtonDown(self, event: sdl2.SDL_Event):
-        # Testing  
-        self.onMouseMove(event)
-        for key in self.gameObjects:
-            print(f"{key} Pos = {self.gameObjects[key].getPos()}")
+        pass
 
     def onMouseButtonUp(self, event: sdl2.SDL_Event):
         pass
 
     def onMouseMove(self, event: sdl2.SDL_Event):
         # Update mouse's position
-        self.gameObjects['rikka'].getPos().setX(event.motion.x)
-        self.gameObjects['rikka'].getPos().setY(event.motion.y)
+        pass
 
     def getStateID(self) -> str:
         return self.menuID

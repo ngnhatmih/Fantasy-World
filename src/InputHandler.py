@@ -37,8 +37,15 @@ class InputHandler(metaclass = Singleton):
     def getMousePos(self):
         return self.mousePos
 
+    # Get state of the mouse button
+    def getMouseButtonState(self, mouseState):
+        return self.mouseButtonStates[mouseState]
+
     # Moving mouse will trigger this event:
     def onMouseMove(self, event: sdl2.SDL_Event):
+        self.mousePos.setX(event.motion.x)
+        self.mousePos.setY(event.motion.y)
+        print(f"Mouse postion: {self.mousePos}")
         self.game.getGameStateMachine().onMouseMove(event)
 
     # MouseButtonDown and MouseButtonUp will trigger these events:
@@ -94,7 +101,7 @@ class InputHandler(metaclass = Singleton):
         # Update keyboardstates
         # 0 is the first index of keyboards in case there are many keyboards connected
         self.keystates = sdl2.SDL_GetKeyboardState(ctypes.c_long(0))
-
+                
         print("Key pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
         self.game.getGameStateMachine().onKeyDown(event)
@@ -108,7 +115,7 @@ class InputHandler(metaclass = Singleton):
 
         self.game.getGameStateMachine().onKeyUp(event)
 
-    def update(self)->bool:
+    def update(self):
         # Is the game running
         self.game.isRunning = True
 
@@ -118,6 +125,8 @@ class InputHandler(metaclass = Singleton):
                 case sdl2.SDL_QUIT:
                     self.game.isRunning = False
                 case sdl2.SDL_KEYDOWN:
+                    if event.key.keysym.sym == sdl2.SDLK_ESCAPE:
+                        self.game.isRunning = False
                     self.onKeyDown(event)
                 case sdl2.SDL_KEYUP:
                     self.onKeyUp(event)
@@ -125,5 +134,7 @@ class InputHandler(metaclass = Singleton):
                     self.onMouseButtonDown(event)
                 case sdl2.SDL_MOUSEBUTTONUP:
                     self.onMouseButtonUp(event)
+                case sdl2.SDL_MOUSEMOTION:
+                    self.onMouseMove(event)
 
         self.game.getGameStateMachine().update()

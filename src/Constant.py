@@ -11,6 +11,11 @@ class MouseButtons(enum.Enum):
     MIDDLE = 1
     RIGHT = 0
     
+class ButtonStates(enum.Enum):
+    BUTTON_OUT = 0
+    BUTTON_OVER = 1
+    BUTTON_DOWN = 2
+    
 class Colors(enum.Enum): 
     RED = (255, 0, 0, 1.0)
     GREEN = (0, 255, 0, 1.0)

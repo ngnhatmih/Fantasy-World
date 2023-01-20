@@ -116,9 +116,13 @@ class Vector2D:
     def normalise(self):
         if self.length() > 0:
             return self / self.length()
-
+    
+    def __iter__(self):
+        yield self.x
+        yield self.y
+        
     def __repr__(self):
         return f"[{self.x}, {self.y}]"
 
 if __name__ == "__main__":
-    pass
+    print(list(Vector2D([0,0])))
