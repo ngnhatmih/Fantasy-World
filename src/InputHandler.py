@@ -45,7 +45,7 @@ class InputHandler(metaclass = Singleton):
     def onMouseMove(self, event: sdl2.SDL_Event):
         self.mousePos.setX(event.motion.x)
         self.mousePos.setY(event.motion.y)
-        print(f"Mouse postion: {self.mousePos}")
+
         self.game.getGameStateMachine().onMouseMove(event)
 
     # MouseButtonDown and MouseButtonUp will trigger these events:
@@ -97,11 +97,12 @@ class InputHandler(metaclass = Singleton):
 
     # KeyDown and KeyUp will trigger these events:
     # Handle pressed keys
+    
     def onKeyDown(self, event: sdl2.SDL_Event):
         # Update keyboardstates
         # 0 is the first index of keyboards in case there are many keyboards connected
         self.keystates = sdl2.SDL_GetKeyboardState(ctypes.c_long(0))
-                
+
         print("Key pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
         self.game.getGameStateMachine().onKeyDown(event)
@@ -124,10 +125,12 @@ class InputHandler(metaclass = Singleton):
             match event.type:
                 case sdl2.SDL_QUIT:
                     self.game.isRunning = False
+                    self.game.getGameStateMachine().gameStates[-1].onExit()
                 case sdl2.SDL_KEYDOWN:
+                    self.onKeyDown(event)
                     if event.key.keysym.sym == sdl2.SDLK_ESCAPE:
                         self.game.isRunning = False
-                    self.onKeyDown(event)
+                        self.game.getGameStateMachine().gameStates[-1].onExit()
                 case sdl2.SDL_KEYUP:
                     self.onKeyUp(event)
                 case sdl2.SDL_MOUSEBUTTONDOWN:
@@ -137,4 +140,3 @@ class InputHandler(metaclass = Singleton):
                 case sdl2.SDL_MOUSEMOTION:
                     self.onMouseMove(event)
 
-        self.game.getGameStateMachine().update()

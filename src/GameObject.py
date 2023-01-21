@@ -24,7 +24,8 @@ class GameObject:
         self.pos += self.vel
         self.rect = (self.pos.getX(), self.pos.getY(), self.rect[2], self.rect[3])
 
-    def clean(self): pass
+    def clean(self):
+        pass
 
     # Get rectangle's width
     def getW(self): return self.rect[2]

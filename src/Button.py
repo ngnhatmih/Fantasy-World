@@ -20,7 +20,7 @@ class Button(GameObject):
             # Change current frame of the button if the mouse is hoverin on it
             self.curFrame = ButtonStates.BUTTON_OVER.value
             
-            # If the left mouse button is down
+            # If the left mouse button is pressed
             if InputHandler().getMouseButtonState(MouseButtons.LEFT.value):
                 self.released = False
                 # Change current frame of the button if the mouse click to it

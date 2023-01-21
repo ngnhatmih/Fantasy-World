@@ -49,8 +49,6 @@ class GameState(ABC): # Declare abtract class
     def getStateID(self)->str:
         pass
 
-    gameObjects:GameObject = {}
-
     def getObjectbyID(self, id:str)->GameObject:
         return self.gameObjects[id]
 

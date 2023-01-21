@@ -2,6 +2,7 @@ from GameState import *
 from TextureManager import *
 from InputHandler import *
 from Button import *
+from PlayState import PlayState
 
 class MenuState(GameState):
     # State ID
@@ -10,6 +11,7 @@ class MenuState(GameState):
     # Pass game instance to avoid circular import
     def __init__(self, game) -> None:
         self.game = game
+        self.gameObjects:GameObject = {}
 
     # Update all objects in menu states
     def update(self):
@@ -30,8 +32,8 @@ class MenuState(GameState):
     # Trigger this event when joinin this menu state
     def onEnter(self) -> bool:
         print("Entering menu state...")
-        self.gameObjects["PlayButton"] = Button("PlayButton", 100, 100, 100, 50, 2.0, self.game)
-        self.gameObjects["ExitButton"] = Button("ExitButton", 100, 220, 100, 50, 2.0, self.game)
+        self.gameObjects["PlayButton"] = Button("PlayButton", 100, 100, 100, 50, 1.0, self.game)
+        self.gameObjects["ExitButton"] = Button("ExitButton", 100, 190, 100, 50, 1.0, self.game)
         return True
 
     # Trigger this event when leavin this menu state
@@ -52,10 +54,21 @@ class MenuState(GameState):
         pass
 
     def onMouseButtonUp(self, event: sdl2.SDL_Event):
-        pass
+        # If the play button is clicked
+        if self.gameObjects["PlayButton"].released == False:
+            self.game.getGameStateMachine().changeState(PlayState(self.game))
+
+        # If the exit button is clicked
+        elif self.gameObjects["ExitButton"].released == False:
+            self.onExit()
+            self.game.isRunning = False
+
+        # If the exit button is clicked
+        elif self.gameObjects["ExitButton"].released == False:
+            self.onExit()
+            self.game.isRunning = False
 
     def onMouseMove(self, event: sdl2.SDL_Event):
-        # Update mouse's position
         pass
 
     def getStateID(self) -> str:
