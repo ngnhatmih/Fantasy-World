@@ -50,7 +50,7 @@ class GameState(ABC): # Declare abtract class
         pass
 
     def getObjectbyID(self, id:str)->GameObject:
-        return self.gameObjects[id]
+        return self.gObjects[id]
 
 
     

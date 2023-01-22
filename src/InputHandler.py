@@ -103,16 +103,12 @@ class InputHandler(metaclass = Singleton):
         # 0 is the first index of keyboards in case there are many keyboards connected
         self.keystates = sdl2.SDL_GetKeyboardState(ctypes.c_long(0))
 
-        print("Key pressed: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
-
         self.game.getGameStateMachine().onKeyDown(event)
 
     # Handle released keys
     def onKeyUp(self, event: sdl2.SDL_Event):
         # Update keyboardstates
         self.keystates = sdl2.SDL_GetKeyboardState(ctypes.c_long(0))
-
-        print("Key released: ", sdl2.SDL_GetKeyName(event.key.keysym.sym))
 
         self.game.getGameStateMachine().onKeyUp(event)
 
