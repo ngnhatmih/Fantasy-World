@@ -1,15 +1,32 @@
 import math
-class Vector2D:
+class Vector2D():
     def __init__(self, vector):
         if isinstance(vector, list) or isinstance(vector, tuple):
             self.x = vector[0]
             self.y = vector[1]
+
         elif isinstance(vector, Vector2D):
             self.x = vector.x
             self.y = vector.y
 
-    def length(self)-> float:
-        return math.sqrt(self.x*self.x + self.y*self.y)
+        self.length = math.sqrt(self.x*self.x + self.y*self.y)
+        self.angle = math.atan2(self.y, self.x)
+    
+    @classmethod
+    def polar_to_cartesian(cls, length, angle):
+        cls.length = length
+        cls.angle = angle
+
+        if length < 0:
+            print("The lenght must be greater than or equal 0")
+        else: 
+            return cls([length*math.cos(angle), length*math.sin(angle)])
+
+    def getLength(self)-> float:
+        return self.length
+    
+    def getAngle(self):
+        return self.angle
 
     def getX(self):
         return self.x
@@ -125,4 +142,5 @@ class Vector2D:
         return f"[{self.x}, {self.y}]"
 
 if __name__ == "__main__":
-    print(list(Vector2D([0,0])))
+    print(Vector2D.polar_to_cartesian(math.sqrt(2), math.pi/4))
+    
